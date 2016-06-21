@@ -15,7 +15,7 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
-        public string ipAddress;
+        public string serverAddress;
         private int port;
         private Socket socket;
         private string fileName;
@@ -23,7 +23,7 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             ipTextBox.Text = "127.0.0.1";
-            portBox.Text = "8080";
+            portBox.Text = "5656";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -65,8 +65,8 @@ namespace WindowsFormsApplication1
                 }
             }else
             {
-                ipAddress = ipTextBox.Text;
-                if (String.IsNullOrEmpty(ipAddress))
+                serverAddress = ipTextBox.Text;
+                if (String.IsNullOrEmpty(serverAddress))
                 {
                     isOk = false;
                     MessageBox.Show("Ip Addres!", "Bad Ip Addres!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -85,7 +85,7 @@ namespace WindowsFormsApplication1
                 {
                     try
                     {
-                        IPAddress[] ipAddresss = Dns.GetHostAddresses(ipAddress);
+                        IPAddress[] ipAddress = Dns.GetHostAddresses(serverAddress);
                         IPEndPoint ipEnd = new IPEndPoint(ipAddress[0], port);
                         socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
                         socket.Connect(ipEnd);
@@ -104,7 +104,7 @@ namespace WindowsFormsApplication1
                     {
                         if (socket.Connected)
                         {
-                            message += " Connected to:" + ipAddress;
+                            message += " Connected to:" + serverAddress;
                             statusLabel.Text = message;
                             connectButton.Text = "Disconnect";
                            
