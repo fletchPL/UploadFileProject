@@ -1,0 +1,6 @@
+F:\Studia\semestr 6\NET\ClientServerFinal\WindowsFormsApplication1\Server\bin\Debug\Server.exe.config
+F:\Studia\semestr 6\NET\ClientServerFinal\WindowsFormsApplication1\Server\bin\Debug\Server.exe
+F:\Studia\semestr 6\NET\ClientServerFinal\WindowsFormsApplication1\Server\bin\Debug\Server.pdb
+F:\Studia\semestr 6\NET\ClientServerFinal\WindowsFormsApplication1\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+F:\Studia\semestr 6\NET\ClientServerFinal\WindowsFormsApplication1\Server\obj\Debug\Server.exe
+F:\Studia\semestr 6\NET\ClientServerFinal\WindowsFormsApplication1\Server\obj\Debug\Server.pdb
