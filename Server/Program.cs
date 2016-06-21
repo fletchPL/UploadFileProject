@@ -34,7 +34,7 @@ namespace Server
                 while (true)
                 {
                     byte[] clientData = new byte[size];
-                    string receivedPath = @"F:\Studia\";
+                    string receivedPath = @"F:\ServerFile\";
 
                     int receivedBytesLen = socketClient.Receive(clientData);
                     // var watch = System.Diagnostics.Stopwatch.StartNew();

@@ -55,63 +55,77 @@ namespace WindowsFormsApplication1
             bool isOk = true;
             string message = "";
 
-            if(socket != null)
+            if(connectButton.Text.Equals("CONNECT"))
             {
-                if(socket.Connected)
+                if (socket != null)
                 {
-                    socket.Close();
-                    socket = null;
+                    if (socket.Connected)
+                    {
+                        socket.Close();
+                        socket = null;
 
-                }
-            }else
-            {
-                serverAddress = ipTextBox.Text;
-                if (String.IsNullOrEmpty(serverAddress))
-                {
-                    isOk = false;
-                    MessageBox.Show("Ip Addres!", "Bad Ip Addres!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                }
-                if(String.IsNullOrEmpty(portBox.Text))
-                {
-                    isOk = false;
-                    MessageBox.Show("Wrong Port!", "Bad PORT!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
                 }
                 else
                 {
-                    port = int.Parse(portBox.Text.ToString());
-                }
-
-                if(isOk)
-                {
-                    try
+                    serverAddress = ipTextBox.Text;
+                    if (String.IsNullOrEmpty(serverAddress))
                     {
-                        IPAddress[] ipAddress = Dns.GetHostAddresses(serverAddress);
-                        IPEndPoint ipEnd = new IPEndPoint(ipAddress[0], port);
-                        socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
-                        socket.Connect(ipEnd);
+                        isOk = false;
+                        MessageBox.Show("Ip Addres!", "Bad Ip Addres!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     }
-                    catch(Exception)
+                    if (String.IsNullOrEmpty(portBox.Text))
                     {
-                        if (e.GetType().FullName.Equals("System.Net.Sockets.SocketException"))
+                        isOk = false;
+                        MessageBox.Show("Wrong Port!", "Bad PORT!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                    else
+                    {
+                        port = int.Parse(portBox.Text.ToString());
+                    }
+
+                    if (isOk)
+                    {
+                        try
                         {
-                            socket = null;
+                            IPAddress[] ipAddress = Dns.GetHostAddresses(serverAddress);
+                            IPEndPoint ipEnd = new IPEndPoint(ipAddress[0], port);
+                            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+                            socket.Connect(ipEnd);
+
+
                         }
-                        message += " Connecting Error!";
-                        statusLabel.Text = message;
-
-                    }
-                    if (socket != null)
-                    {
-                        if (socket.Connected)
+                        catch (Exception)
                         {
-                            message += " Connected to:" + serverAddress;
+                            if (e.GetType().FullName.Equals("System.Net.Sockets.SocketException"))
+                            {
+                                socket = null;
+                            }
+                            message += " Connecting Error!";
                             statusLabel.Text = message;
-                            connectButton.Text = "Disconnect";
-                           
+
+                        }
+                        if (socket != null)
+                        {
+
+                            if (socket.Connected)
+                            {
+                                message += " Connected to:" + serverAddress;
+                                statusLabel.Text = message;
+                                connectButton.Text = "Disconnect";
+
+                            }
                         }
                     }
                 }
+            }else if(connectButton.Text.Equals("Disconnect"))
+            {
+                socket.Close();
+                connectButton.Text = "CONNECT";
+                statusLabel.Text = "Disconected!";
+                
             }
+           
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -162,8 +176,6 @@ namespace WindowsFormsApplication1
                 message += ex.Message;
             }
 
-           // uploadStatusBox.Text = message;
-        
     }
     }
 }
